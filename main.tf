@@ -51,6 +51,7 @@ resource "aws_security_group" "frontend_access" {
 
   tags = {
     Name = "${var.project_name}-${var.project_env}-frontend"
+    Test = Port 9099 added
   }
 }
 
