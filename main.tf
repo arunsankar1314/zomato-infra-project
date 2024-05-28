@@ -51,11 +51,20 @@ resource "aws_security_group" "frontend_access" {
 
   tags = {
     Name = "${var.project_name}-${var.project_env}-frontend"
-    Test = Port 9099 added
+    Test = "Port 9099 added"
   }
 }
 
 resource "aws_instance" "frontend" {
+
+  ami                    = var.instance_ami
+  instance_type          = var.instance_type
+  key_name               = var.key_name
+  vpc_security_group_ids = [aws_security_group.frontend_access.id]
+  user_data              = file("setup.sh")
+}
+
+resource "aws_instance" "monitoring" {
 
   ami                    = var.instance_ami
   instance_type          = var.instance_type
